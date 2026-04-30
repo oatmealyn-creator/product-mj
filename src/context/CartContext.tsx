@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Product } from '../data/mockData';
+import { ShopifyProduct } from '../services/shopify';
 
-export interface CartItem extends Product {
+export interface CartItem extends ShopifyProduct {
   cartItemId: string;
   quantity: number;
   selectedSize: string;
@@ -9,7 +9,7 @@ export interface CartItem extends Product {
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product, size: string, quantity: number) => void;
+  addToCart: (product: ShopifyProduct, size: string, quantity: number) => void;
   removeFromCart: (cartItemId: string) => void;
   updateQuantity: (cartItemId: string, quantity: number) => void;
   isCartOpen: boolean;
@@ -24,7 +24,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const addToCart = (product: Product, size: string, quantity: number) => {
+  const addToCart = (product: ShopifyProduct, size: string, quantity: number) => {
     setCart((prev) => {
       const existingItemIndex = prev.findIndex(
         (item) => item.id === product.id && item.selectedSize === size

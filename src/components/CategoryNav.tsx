@@ -1,8 +1,18 @@
-import { CATEGORIES } from '../data/mockData';
+import { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
+import { shopifyService } from '../services/shopify';
 
 export default function CategoryNav() {
   const { activeCategory, setActiveCategory } = useShop();
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    async function loadCategories() {
+      const fetched = await shopifyService.getCollections();
+      setCategories(fetched);
+    }
+    loadCategories();
+  }, []);
 
   return (
     <div className="w-full px-4 md:px-8 py-2 overflow-x-auto hide-scrollbar text-center hidden md:block">
@@ -15,7 +25,7 @@ export default function CategoryNav() {
         >
           ALL PRODUCTS
         </button>
-        {CATEGORIES.map((cat, idx) => (
+        {categories.map((cat) => (
           <button 
             key={cat}
             onClick={() => setActiveCategory(cat)}

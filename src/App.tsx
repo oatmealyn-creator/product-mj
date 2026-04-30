@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
 import { ShopProvider, useShop } from './context/ShopContext';
 import AnnouncementBar from './components/AnnouncementBar';
@@ -9,17 +9,34 @@ import ProductCard from './components/ProductCard';
 import QuickViewModal from './components/QuickViewModal';
 import CartDrawer from './components/CartDrawer';
 import Newsletter from './components/Newsletter';
-import { PRODUCTS, Product } from './data/mockData';
+import { shopifyService, ShopifyProduct } from './services/shopify';
 
 function MainContent() {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ShopifyProduct | null>(null);
+  const [products, setProducts] = useState<ShopifyProduct[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { activeCategory } = useShop();
 
-  const handleProductClick = (product: Product) => {
+  useEffect(() => {
+    async function loadProducts() {
+      setIsLoading(true);
+      try {
+        const fetchedProducts = await shopifyService.getProducts();
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error("Failed to load generic products", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadProducts();
+  }, []);
+
+  const handleProductClick = (product: ShopifyProduct) => {
     setSelectedProduct(product);
   };
 
-  const filteredProducts = PRODUCTS.filter(product => {
+  const filteredProducts = products.filter((product) => {
     return activeCategory === 'ALL PRODUCTS' || product.category === activeCategory;
   });
 
@@ -54,9 +71,11 @@ function MainContent() {
               <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">
                 {activeCategory === 'ALL PRODUCTS' ? 'Latest Drops' : activeCategory}
               </h3>
-              <p className="text-sm text-gray-400 font-medium mt-1">
-                 {displayProducts.length} {displayProducts.length === 1 ? 'item' : 'items'} found.
-              </p>
+              {!isLoading && (
+                <p className="text-sm text-gray-400 font-medium mt-1">
+                   {displayProducts.length} {displayProducts.length === 1 ? 'item' : 'items'} found.
+                </p>
+              )}
             </div>
             <div className="hidden sm:block">
               <span className="text-sm font-bold text-orange-400 cursor-pointer hover:text-orange-300 transition-colors uppercase tracking-widest">View All</span>
@@ -64,12 +83,16 @@ function MainContent() {
           </div>
 
           {/* Product Grid */}
-          {displayProducts.length > 0 ? (
+          {isLoading ? (
+            <div className="px-4 md:px-8 py-20 text-center text-gray-400 flex justify-center items-center">
+              <div className="w-8 h-8 rounded-full border-2 border-orange-500 border-t-transparent animate-spin"></div>
+            </div>
+          ) : displayProducts.length > 0 ? (
             <div className="px-4 md:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {displayProducts.map(product => (
                 <ProductCard 
                   key={product.id} 
-                  product={product as Product} 
+                  product={product as ShopifyProduct} 
                   onClick={handleProductClick} 
                 />
               ))}

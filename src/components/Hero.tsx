@@ -1,3 +1,5 @@
+import { ArrowRight } from 'lucide-react';
+
 export default function Hero() {
   return (
     <div className="w-full mb-12">
@@ -11,14 +13,21 @@ export default function Hero() {
           <div className="inline-flex px-3 py-1 sm:px-4 sm:py-1.5 bg-orange-500/20 border border-orange-500/30 rounded-full text-orange-300 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest w-fit">
             Exclusive Indian Tour Edition
           </div>
-          <h1 className="text-[2.5rem] leading-[0.9] sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase">
+          <h1 className="text-3xl leading-[0.9] sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase">
             THE KING <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-200 to-orange-400">OF POP</span>
           </h1>
-          <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-md font-medium">
-            Celebrate the MJ legacy with the "Moonwalker" collection. Reimagined for the Indian vibe with premium gold-foil embroidery and heavy-duty 450 GSM hoodies.
+          <p className="text-gray-400 text-xs sm:text-base md:text-lg max-w-md font-medium">
+            Celebrate the MJ legacy with the "Moonwalker" collection. Reimagined with premium gold-foil embroidery and heavy-duty 450 GSM hoodies.
           </p>
           
-          {/* Buttons removed */}
+          <div className="flex flex-wrap gap-2 sm:gap-4 pt-2 sm:pt-4">
+            <button className="px-4 py-2 sm:px-8 sm:py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-black uppercase text-[10px] sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-2xl shadow-orange-500/30 ring-2 sm:ring-4 ring-orange-500/10 hover:scale-105 transition-transform flex items-center gap-1 sm:gap-2">
+              Shop Drop <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+            </button>
+            <button className="px-4 py-2 sm:px-8 sm:py-4 bg-white/5 backdrop-blur-xl border border-white/10 text-white font-bold uppercase text-[10px] sm:text-sm rounded-lg sm:rounded-xl hover:bg-white/10 transition-colors">
+              Lookbook
+            </button>
+          </div>
         </div>
         
         {/* Playful Floating Elements for Glass Effect */}

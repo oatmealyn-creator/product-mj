@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronRight, Check } from 'lucide-react';
-import { Product } from '../data/mockData';
+import { ShopifyProduct } from '../services/shopify';
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 
 interface QuickViewProps {
-  product: Product | null;
+  product: ShopifyProduct | null;
   isOpen: boolean;
   onClose: () => void;
 }

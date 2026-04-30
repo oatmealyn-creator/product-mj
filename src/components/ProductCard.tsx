@@ -1,11 +1,11 @@
 import { motion } from 'motion/react';
 import { DollarSign } from 'lucide-react';
-import { Product } from '../data/mockData';
+import { ShopifyProduct } from '../services/shopify';
 
 interface ProductCardProps {
   key?: string | number;
-  product: Product;
-  onClick: (product: Product) => void;
+  product: ShopifyProduct;
+  onClick: (product: ShopifyProduct) => void;
 }
 
 export default function ProductCard({ product, onClick }: ProductCardProps) {
