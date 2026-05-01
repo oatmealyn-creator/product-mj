@@ -13,13 +13,13 @@ body {
 
 @layer utilities {
   .glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-lg;
+    @apply bg-neutral-900 border border-white/10 shadow-lg;
   }
   .glass-panel {
-    @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl;
+    @apply bg-neutral-900 border border-white/10 shadow-2xl;
   }
   .glass-button {
-    @apply bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-white transition-colors shadow-sm;
+    @apply bg-neutral-800 hover:bg-neutral-700 border border-white/10 text-white transition-colors shadow-sm;
   }
   .hide-scrollbar::-webkit-scrollbar {
     display: none;

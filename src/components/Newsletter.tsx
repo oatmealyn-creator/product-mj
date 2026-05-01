@@ -1,7 +1,7 @@
 export default function Newsletter() {
   return (
     <div className="w-full mt-24 mb-12 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden backdrop-blur-xl">
+      <div className="bg-neutral-900 border border-white/10 rounded-3xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden">
         {/* Glow Effects */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none translate-y-1/2 -translate-x-1/2"></div>

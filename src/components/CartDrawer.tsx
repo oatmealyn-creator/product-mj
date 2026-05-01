@@ -41,7 +41,7 @@ export default function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsCartOpen(false)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-md z-50"
+            className="fixed inset-0 bg-black/80 z-50"
           />
 
           {/* Drawer */}
@@ -50,7 +50,7 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-neutral-900/90 backdrop-blur-2xl z-50 flex flex-col shadow-2xl border-l border-white/10 text-white"
+            className="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-neutral-900 z-50 flex flex-col shadow-2xl border-l border-white/10 text-white"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/10">
@@ -137,7 +137,7 @@ export default function CartDrawer() {
 
             {/* Footer Summary */}
             {cart.length > 0 && (
-              <div className="border-t border-white/10 p-4 bg-white/5 backdrop-blur-md pb-safe">
+              <div className="border-t border-white/10 p-4 bg-neutral-900 pb-safe">
                 <div className="space-y-2 mb-4 text-sm">
                   <div className="flex justify-between text-gray-400">
                     <span>Total MRP</span>

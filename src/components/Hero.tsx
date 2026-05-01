@@ -4,7 +4,7 @@ export default function Hero() {
       <div className="relative w-full rounded-3xl md:rounded-[40px] overflow-hidden shadow-xl md:shadow-2xl min-h-[250px] sm:min-h-[350px] md:min-h-[500px] flex items-center group cursor-pointer border border-white/10 glass-panel">
         
         {/* Abstract Gradient Background for Hero */}
-        <div className="absolute inset-0 bg-gradient-to-b from-orange-500/20 to-transparent blur-3xl opacity-50 z-0 mix-blend-screen"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-orange-500/20 to-transparent z-0"></div>
 
         {/* Content */}
         <div className="relative z-10 p-5 sm:p-8 md:p-16 md:w-2/3 flex flex-col justify-center space-y-3 sm:space-y-6">

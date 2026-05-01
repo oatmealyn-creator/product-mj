@@ -79,17 +79,17 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-md z-50"
+            className="fixed inset-0 bg-black/80 z-50"
           />
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-4xl max-h-[90vh] overflow-y-auto bg-neutral-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl z-50 flex flex-col md:flex-row shadow-2xl text-white"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-4xl max-h-[90vh] overflow-y-auto bg-neutral-900 border border-white/10 rounded-3xl z-50 flex flex-col md:flex-row shadow-2xl text-white"
           >
             <button 
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 bg-black/40 backdrop-blur p-2 rounded-full hover:bg-black text-gray-300 transition-colors border border-white/10"
+              className="absolute top-4 right-4 z-10 bg-black/60 p-2 rounded-full hover:bg-black text-gray-300 transition-colors border border-white/10"
             >
               <X className="w-5 h-5" />
             </button>

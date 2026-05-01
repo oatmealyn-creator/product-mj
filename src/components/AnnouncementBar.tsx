@@ -1,7 +1,6 @@
 export default function AnnouncementBar() {
   const items = [
     "FREE SHIPPING",
-    "NO RESTOCKS",
     "PREMIUM 450GSM HEAVYWEIGHT COTTON",
     "LIMITED EDITION EXCLUSIVE DROPS",
     "AUTHENTIC MOONWALKER MERCH",

@@ -15,7 +15,7 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
-      className="group relative flex flex-col bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden cursor-pointer hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)] transition-all duration-300 hover:border-white/20 hover:-translate-y-1"
+      className="group relative flex flex-col bg-neutral-900 rounded-2xl border border-white/10 overflow-hidden cursor-pointer hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)] transition-all duration-300 hover:border-white/20 hover:-translate-y-1"
       onClick={() => onClick(product)}
     >
       {/* Badges */}
@@ -37,7 +37,7 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
         />
         
         {/* Rating overlay */}
-        <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/60 backdrop-blur-md rounded-full px-2 py-0.5 text-xs font-semibold shadow-sm text-gray-200 border border-white/10">
+        <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/80 rounded-full px-2 py-0.5 text-xs font-semibold shadow-sm text-gray-200 border border-white/10">
           <span className="text-orange-400">★</span>
           <span>{product.rating}</span>
           <span className="text-gray-500 mx-0.5">|</span>

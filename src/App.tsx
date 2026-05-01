@@ -33,7 +33,27 @@ function MainContent() {
   }, []);
 
   const handleProductClick = (product: ShopifyProduct) => {
+    window.history.pushState({ modal: 'product', id: product.id }, '', window.location.href);
     setSelectedProduct(product);
+  };
+
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (selectedProduct) {
+        setSelectedProduct(null);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [selectedProduct]);
+
+  const closeProductModal = () => {
+    // If we are currently showing a product via history state, back it out
+    if (window.history.state?.modal === 'product') {
+      window.history.back();
+    } else {
+      setSelectedProduct(null);
+    }
   };
 
   const filteredProducts = products.filter((product) => {
@@ -44,8 +64,8 @@ function MainContent() {
 
   return (
     <div className="pb-24 relative overflow-x-hidden min-h-screen text-white bg-[#050505]">
-      {/* Abstract Background Blobs */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none fixed">
+      {/* Abstract Background Blobs - hidden on mobile for performance */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none fixed hidden sm:block">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-900 rounded-full blur-[120px] opacity-30"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-orange-600 rounded-full blur-[150px] opacity-20"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-indigo-600 rounded-full blur-[180px] opacity-10"></div>
@@ -55,7 +75,7 @@ function MainContent() {
         {/* Navigation Layers - Sticky */}
         <div className="sticky top-0 z-50 flex flex-col">
           <AnnouncementBar />
-          <div className="bg-[#050505]/80 backdrop-blur-md border-b border-white/10">
+          <div className="bg-[#050505] border-b border-white/10">
             <Header />
             <CategoryNav />
           </div>
@@ -118,7 +138,7 @@ function MainContent() {
         <QuickViewModal 
           isOpen={!!selectedProduct} 
           product={selectedProduct} 
-          onClose={() => setSelectedProduct(null)} 
+          onClose={closeProductModal} 
         />
         <CartDrawer />
       </div>
