@@ -15,8 +15,8 @@ export default function CategoryNav() {
   }, []);
 
   return (
-    <div className="w-full px-4 md:px-8 py-2 overflow-x-auto hide-scrollbar text-center hidden md:block">
-      <div className="max-w-7xl mx-auto inline-flex items-center gap-8 text-sm font-medium uppercase tracking-widest text-gray-400">
+    <div className="w-full px-4 md:px-8 py-2 overflow-x-auto hide-scrollbar text-center border-y border-white/5 md:border-none mb-4 md:mb-0">
+      <div className="max-w-7xl mx-auto flex md:inline-flex items-center gap-6 md:gap-8 text-xs md:text-sm font-medium uppercase tracking-widest text-gray-400">
         <button 
           onClick={() => setActiveCategory('ALL PRODUCTS')}
           className={`hover:text-orange-400 transition-colors uppercase whitespace-nowrap border-b-2 pb-1 ${

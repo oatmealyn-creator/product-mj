@@ -46,22 +46,22 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-4 flex flex-col flex-grow items-center text-center">
-        <h3 className="text-sm font-bold text-gray-200 line-clamp-2 mb-3">
+      <div className="p-3 sm:p-4 flex flex-col flex-grow items-center text-center">
+        <h3 className="text-xs sm:text-sm font-bold text-gray-200 line-clamp-2 mb-2 sm:mb-3">
           {product.name}
         </h3>
         
         <div className="mt-auto">
-          <span className="text-sm font-medium text-white flex items-center justify-center">
-            Starts From 
-            <DollarSign className="w-3.5 h-3.5 ml-1" />
+          <span className="text-xs sm:text-sm font-medium text-white flex items-center justify-center">
+            From 
+            <DollarSign className="w-3 h-3 sm:w-3.5 sm:h-3.5 ml-1" />
             {product.price}
           </span>
         </div>
 
         {/* Action Button */}
-        <div className="mt-4 w-full">
-          <button className="w-full py-2 rounded-xl border border-white/20 text-white font-bold text-xs tracking-wider uppercase hover:bg-white hover:text-black transition-colors">
+        <div className="mt-3 sm:mt-4 w-full">
+          <button className="w-full py-1.5 sm:py-2 rounded-lg sm:rounded-xl border border-white/20 text-white font-bold text-[10px] sm:text-xs tracking-wider uppercase hover:bg-white hover:text-black transition-colors">
             Quick View
           </button>
         </div>

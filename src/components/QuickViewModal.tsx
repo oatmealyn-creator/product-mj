@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronRight, Check } from 'lucide-react';
-import { ShopifyProduct } from '../services/shopify';
+import { ShopifyProduct, shopifyService } from '../services/shopify';
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 
@@ -14,6 +14,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [sizeError, setSizeError] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [isBuyingNow, setIsBuyingNow] = useState(false);
   const { addToCart } = useCart();
 
   if (!product) return null;
@@ -33,6 +34,40 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
       // Reset state
       setSelectedSize('');
     }, 500);
+  };
+
+  const handleBuyNow = async () => {
+    if (!selectedSize) {
+      setSizeError(true);
+      return;
+    }
+
+    setSizeError(false);
+    setIsBuyingNow(true);
+    
+    try {
+      // Add the item to cart conceptually or just create a direct checkout
+      // In a real app we might just redirect to a direct checkout link with checkout lines
+      // We will simulate it by first adding to cart if we want, or creating a checkout directly
+      addToCart(product, selectedSize, 1);
+      
+      const checkoutUrl = await shopifyService.createCheckoutUrl([{
+         ...product,
+         cartItemId: Date.now().toString(),
+         quantity: 1,
+         selectedSize
+      }]);
+      console.log("Redirecting to Shopify Checkout:", checkoutUrl);
+      
+      setTimeout(() => {
+        setIsBuyingNow(false);
+        onClose();
+        setSelectedSize('');
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+      setIsBuyingNow(false);
+    }
   };
 
   return (
@@ -143,25 +178,41 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
                 </div>
               </div>
 
-              {/* Add to Cart Button */}
-              <button 
-                onClick={handleAddToCart}
-                disabled={isAdding}
-                className={`
-                  w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all mt-auto border
-                  ${isAdding 
-                    ? 'bg-green-500 border-green-500 text-white scale-[0.98]' 
-                    : 'bg-white text-black border-white hover:bg-orange-400 hover:border-orange-400 hover:text-white hover:shadow-orange-500/30 shadow-lg'}
-                `}
-              >
-                {isAdding ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Check className="w-5 h-5" /> Added to Bag
-                  </span>
-                ) : (
-                  'ADD TO BAG'
-                )}
-              </button>
+              {/* Actions */}
+              <div className="flex flex-col gap-3 mt-auto">
+                <button 
+                  onClick={handleAddToCart}
+                  disabled={isAdding || isBuyingNow}
+                  className={`
+                    w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all border
+                    ${isAdding 
+                      ? 'bg-green-500 border-green-500 text-white scale-[0.98]' 
+                      : 'bg-white text-black border-white hover:bg-orange-400 hover:border-orange-400 hover:text-white hover:shadow-orange-500/30 shadow-lg'}
+                  `}
+                >
+                  {isAdding ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Check className="w-5 h-5" /> Added to Bag
+                    </span>
+                  ) : (
+                    'ADD TO BAG'
+                  )}
+                </button>
+
+                <button 
+                  onClick={handleBuyNow}
+                  disabled={isAdding || isBuyingNow}
+                  className="w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all border border-orange-500 bg-orange-500 text-white hover:bg-orange-600 hover:border-orange-600 shadow-lg shadow-orange-500/30 disabled:opacity-75 relative overflow-hidden"
+                >
+                  {isBuyingNow ? (
+                    <div className="flex items-center justify-center">
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    </div>
+                  ) : (
+                    'BUY IT NOW'
+                  )}
+                </button>
+              </div>
             </div>
           </motion.div>
         </>

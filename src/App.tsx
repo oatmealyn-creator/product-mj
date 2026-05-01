@@ -15,7 +15,7 @@ function MainContent() {
   const [selectedProduct, setSelectedProduct] = useState<ShopifyProduct | null>(null);
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { activeCategory } = useShop();
+  const { activeCategory, setActiveCategory } = useShop();
 
   useEffect(() => {
     async function loadProducts() {
@@ -77,8 +77,16 @@ function MainContent() {
                 </p>
               )}
             </div>
-            <div className="hidden sm:block">
-              <span className="text-sm font-bold text-orange-400 cursor-pointer hover:text-orange-300 transition-colors uppercase tracking-widest">View All</span>
+            <div>
+              <span 
+                onClick={() => {
+                  setActiveCategory('ALL PRODUCTS');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="text-xs sm:text-sm font-bold text-orange-400 cursor-pointer hover:text-orange-300 transition-colors uppercase tracking-widest"
+              >
+                View All
+              </span>
             </div>
           </div>
 

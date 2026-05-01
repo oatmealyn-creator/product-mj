@@ -44,8 +44,15 @@ export const shopifyService = {
     });
   },
 
-  // In the future for Shopify integration:
-  // - async createCart()
-  // - async cartLinesAdd(cartId, lineItems)
-  // - async checkout(cartId)
+  /**
+   * Simulate creating a checkout URL
+   */
+  async createCheckoutUrl(cartItems: any[]): Promise<string> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // In a real Shopify integration, this would create a checkout and return its webUrl
+        resolve("https://shopify.com/checkout/example-token123");
+      }, 500);
+    });
+  }
 };

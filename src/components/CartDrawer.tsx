@@ -2,11 +2,34 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Minus, Plus, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
+import { useState } from 'react';
+import { shopifyService } from '../services/shopify';
+
 export default function CartDrawer() {
   const { cart, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, cartTotal, cartOriginalTotal } = useCart();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
   
   const discount = cartOriginalTotal - cartTotal;
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  const handleCheckout = async () => {
+    setIsCheckingOut(true);
+    try {
+      const checkoutUrl = await shopifyService.createCheckoutUrl(cart);
+      // In a real app we'd redirect exactly to the shopify checkout url:
+      // window.location.href = checkoutUrl;
+      console.log("Redirecting to Shopify Checkout:", checkoutUrl);
+      
+      // Simulate redirection wait for preview
+      setTimeout(() => {
+        setIsCheckingOut(false);
+        setIsCartOpen(false);
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+      setIsCheckingOut(false);
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -140,8 +163,16 @@ export default function CartDrawer() {
                   <p className="text-xs font-bold text-orange-400">You saved ${discount} on this order!</p>
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-orange-500 to-purple-500 text-white font-black py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 hover:scale-[1.02] transition-transform uppercase tracking-widest">
-                  PROCEED TO BUY <ArrowRight className="w-4 h-4" />
+                <button 
+                  onClick={handleCheckout}
+                  disabled={isCheckingOut}
+                  className="w-full bg-gradient-to-r from-orange-500 to-purple-500 text-white font-black py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 hover:scale-[1.02] transition-transform uppercase tracking-widest disabled:opacity-75 disabled:hover:scale-100"
+                >
+                  {isCheckingOut ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    <>PROCEED TO BUY <ArrowRight className="w-4 h-4" /></>
+                  )}
                 </button>
               </div>
             )}
